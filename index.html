@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Madeleine Guillery — Medical Visualization Artist</title>
+  <meta name="description" content="Multi-disciplinary bio-medical artist specializing in 2D illustration, 3D modeling, animation, and interactive medical visualization. MSc Medical Visualization, Glasgow School of Art.">
+  <meta name="author" content="Madeleine Guillery">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Madeleine Guillery — Medical Visualization Artist">
+  <meta property="og:description" content="Transforming complex medical concepts into captivating visual narratives.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Cormorant Garamond (serif) + Inter (sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       NAVIGATION
+       ====================================================================== -->
+  <nav class="nav" id="nav">
+    <div class="nav__container">
+
+      <!-- Logo / Name -->
+      <a href="#home" class="nav__logo">
+        <span class="nav__logo-name">Madeleine Guillery</span>
+        <span class="nav__logo-title">Medical Visualization</span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <ul class="nav__links">
+        <li><a href="#portfolio" class="nav__link">Portfolio</a></li>
+        <li><a href="#about"     class="nav__link">About</a></li>
+        <li><a href="#process"   class="nav__link">Process</a></li>
+        <li><a href="#contact"   class="nav__link nav__link--cta">Get In Touch</a></li>
+      </ul>
+
+      <!-- Hamburger (mobile only) -->
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile slide-down menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="mobile-menu__links">
+      <li><a href="#portfolio" class="mobile-menu__link">Portfolio</a></li>
+      <li><a href="#about"     class="mobile-menu__link">About</a></li>
+      <li><a href="#process"   class="mobile-menu__link">Process</a></li>
+      <li><a href="#contact"   class="mobile-menu__link">Get In Touch</a></li>
+    </ul>
+  </div>
+
+
+  <!-- ======================================================================
+       HERO
+       ====================================================================== -->
+  <section id="home" class="hero">
+    <div class="hero__container">
+
+      <!-- Left: text content -->
+      <div class="hero__content">
+        <p class="hero__eyebrow reveal">Medical Visualization Artist</p>
+
+        <h1 class="hero__name reveal reveal--delay-1">
+          Madeleine<br>Guillery
+        </h1>
+
+        <p class="hero__tagline reveal reveal--delay-2">
+          Illustration, 3D modeling,<br>animation and more.
+        </p>
+
+        <p class="hero__bio reveal reveal--delay-2">
+          Multi-disciplinary bio-medical artist thriving at the intersection of
+          art and science — transforming complex medical concepts into captivating
+          visual narratives that make health education inspiring.
+        </p>
+
+        <div class="hero__actions reveal reveal--delay-3">
+          <a href="#portfolio" class="btn btn--primary">View Portfolio</a>
+          <a href="#contact"   class="btn btn--secondary">Work Together</a>
+        </div>
+
+        <div class="hero__credentials reveal reveal--delay-4">
+          <div class="credential">
+            <span class="credential__label">Education</span>
+            <span class="credential__value">
+              MSc Medical Visualization &amp; Human Anatomy<br>
+              Glasgow School of Art × University of Glasgow
+            </span>
+          </div>
+          <div class="credential">
+            <span class="credential__label">Availability</span>
+            <span class="credential__value">Open for short &amp; long-term projects</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: hero image -->
+      <div class="hero__image reveal reveal--delay-2">
+        <div class="hero__image-frame">
+          <div class="hero__image-inner">
+            <!--
+              REPLACE THIS PLACEHOLDER with your hero image:
+              <img src="assets/images/hero.jpg" alt="Featured work by Madeleine Guillery">
+
+              Recommended: 800×1000px, your single strongest piece.
+            -->
+            <div class="hero__placeholder">
+              <svg class="hero__placeholder-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="1"/>
+                <circle cx="32" cy="32" r="16" stroke="currentColor" stroke-width="1"/>
+                <circle cx="32" cy="32" r="6" stroke="currentColor" stroke-width="1"/>
+                <line x1="32" y1="4"  x2="32" y2="60" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2,4"/>
+                <line x1="4"  y1="32" x2="60" y2="32" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2,4"/>
+                <line x1="12" y1="12" x2="52" y2="52" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2,6"/>
+                <line x1="52" y1="12" x2="12" y2="52" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2,6"/>
+              </svg>
+              <span>Add your hero image here<br><small>assets/images/hero.jpg</small></span>
+            </div>
+          </div>
+          <p class="hero__image-caption">Featured Work — Fig. I</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plate annotation -->
+    <span class="hero__plate-label">Plate I</span>
+  </section>
+
+
+  <!-- ======================================================================
+       PORTFOLIO
+       ====================================================================== -->
+  <section id="portfolio" class="portfolio section">
+    <div class="container">
+
+      <div class="section__header reveal">
+        <p class="section__label">§ 01 — Work</p>
+        <h2 class="section__title">Portfolio</h2>
+        <p class="section__subtitle">
+          A selection of medical illustration and visualization work.
+        </p>
+      </div>
+
+      <!-- Category filter tabs -->
+      <div class="portfolio__filters reveal">
+        <button class="filter-btn active" data-filter="all">All Work</button>
+        <button class="filter-btn" data-filter="illustrations">Illustrations</button>
+        <button class="filter-btn" data-filter="thesis">Thesis Project</button>
+      </div>
+
+      <!-- Portfolio grid -->
+      <div class="portfolio__grid" id="portfolioGrid">
+
+        <!-- ── ILLUSTRATIONS ─────────────────────────────────────────── -->
+
+        <article class="portfolio__item reveal" data-category="illustrations">
+          <a href="projects/orbital-teratoma-surgical-illustration.html" style="display:contents;">
+            <div class="portfolio__item-image">
+              <img src="assets/portfolio/illustrations/orbital-teratoma/panel-1-intraoperative-exposure.jpg" alt="Globe-Sparing Surgery in Neonatal Orbital Teratoma — intraoperative exposure panel">
+              <div class="portfolio__overlay">
+                <p class="portfolio__overlay-cat">Illustrations</p>
+                <h3 class="portfolio__overlay-title">Globe-Sparing Surgery in Neonatal Orbital Teratoma</h3>
+              </div>
+            </div>
+            <div class="portfolio__item-info">
+              <p class="portfolio__item-tag">Illustrations</p>
+              <h3 class="portfolio__item-title">Globe-Sparing Surgery in Neonatal Orbital Teratoma</h3>
+              <p class="portfolio__item-caption">Photoshop &middot; Digital Illustration · 2026</p>
+            </div>
+          </a>
+        </article>
+
+        <article class="portfolio__item reveal reveal--delay-1" data-category="illustrations">
+          <a href="projects/multiple-finger-avulsion.html" style="display:contents;">
+            <div class="portfolio__item-image">
+              <img src="assets/portfolio/illustrations/multiple-finger-avulsion/final-plate.jpg" alt="Multiple Finger Avulsion Injury — three-panel surgical illustration series">
+              <div class="portfolio__overlay">
+                <p class="portfolio__overlay-cat">Illustrations</p>
+                <h3 class="portfolio__overlay-title">Multiple Finger Avulsion Injury</h3>
+              </div>
+            </div>
+            <div class="portfolio__item-info">
+              <p class="portfolio__item-tag">Illustrations</p>
+              <h3 class="portfolio__item-title">Multiple Finger Avulsion Injury</h3>
+              <p class="portfolio__item-caption">Photoshop &middot; Digital Illustration · 2026</p>
+            </div>
+          </a>
+        </article>
+
+        <!-- ── THESIS PROJECT ─────────────────────────────────────────── -->
+
+        <article class="portfolio__item reveal" data-category="thesis">
+          <a href="projects/digit-revascularization-vr.html" style="display:contents;">
+            <div class="portfolio__item-image">
+              <img src="assets/portfolio/thesis/digit-revascularization/vr-injury.jpg" alt="Digit Revascularization VR Training Tool — isolated anatomy view">
+              <div class="portfolio__overlay">
+                <p class="portfolio__overlay-cat">Thesis Project</p>
+                <h3 class="portfolio__overlay-title">Digit Revascularization VR Training Tool</h3>
+              </div>
+            </div>
+            <div class="portfolio__item-info">
+              <p class="portfolio__item-tag">Thesis Project</p>
+              <h3 class="portfolio__item-title">Digit Revascularization VR Training Tool</h3>
+              <p class="portfolio__item-caption">MSc Medical Visualization · Glasgow School of Art</p>
+            </div>
+          </a>
+        </article>
+
+      </div><!-- /portfolio__grid -->
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       ABOUT
+       ====================================================================== -->
+  <section id="about" class="about section">
+    <div class="container">
+
+      <div class="about__grid">
+
+        <!-- Left: written content -->
+        <div class="about__content">
+          <div class="reveal">
+            <p class="section__label">§ 02 — About</p>
+            <h2 class="section__title">About<br>Madeleine</h2>
+          </div>
+
+          <p class="about__intro reveal">
+            Multi-disciplinary bio-medical artist with expertise across the full
+            spectrum of medical visualization — from hand-drawn anatomical study
+            to cutting-edge 3D rendering and VR.
+          </p>
+
+          <div class="about__body reveal">
+            <p>
+              I thrive at the intersection of art and science, driven by a
+              mission to transform medical concepts into visuals that are not
+              only scientifically accurate but genuinely captivating. My work
+              spans 2D illustration, 3D modeling, anatomical animation,
+              volumetric visualization, interactive application design, and
+              VR development.
+            </p>
+            <p>
+              Having trained at the Glasgow School of Art in partnership with the
+              University of Glasgow, I developed a rigorous foundation in both
+              the artistic and clinical dimensions of medical visualization — a
+              discipline that demands equal parts scientific literacy and
+              creative discipline.
+            </p>
+            <p>
+              I value innovation, embrace creative challenges, and pursue
+              unconventional concepts without compromising on scientific
+              accuracy or artistic excellence. Whether the brief calls for a
+              surgical illustration, a patient-education animation, or an
+              immersive interactive experience, I bring the same standard
+              of care to every project.
+            </p>
+          </div>
+
+          <blockquote class="about__quote reveal">
+            "As someone who thrives at the intersection of art and science,
+            I'm on a mission to transform medical concepts into captivating
+            visuals and engaging narratives focused on making health education
+            inspiring."
+          </blockquote>
+        </div>
+
+        <!-- Right: sidebar cards -->
+        <aside class="about__sidebar">
+
+          <!-- Education -->
+          <div class="about__card reveal">
+            <p class="about__card-title">Education</p>
+            <div class="about__edu-item">
+              <p class="about__edu-degree">MSc Medical Visualization<br>&amp; Human Anatomy</p>
+              <p class="about__edu-school">Glasgow School of Art × University of Glasgow</p>
+              <p class="about__edu-detail">Joint Programme · Distinction</p>
+            </div>
+          </div>
+
+          <!-- Disciplines -->
+          <div class="about__card reveal">
+            <p class="about__card-title">Disciplines &amp; Skills</p>
+            <div class="skills-list">
+              <div class="skill-item">
+                <div class="skill-item__label">
+                  <span class="skill-item__name">2D Drawing &amp; Painting</span>
+                </div>
+                <div class="skill-item__bar"><div class="skill-item__fill" style="width:95%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__label">
+                  <span class="skill-item__name">3D Modeling &amp; Rendering</span>
+                </div>
+                <div class="skill-item__bar"><div class="skill-item__fill" style="width:90%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__label">
+                  <span class="skill-item__name">Animation (2D &amp; 3D)</span>
+                </div>
+                <div class="skill-item__bar"><div class="skill-item__fill" style="width:85%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__label">
+                  <span class="skill-item__name">Volumetric Visualization</span>
+                </div>
+                <div class="skill-item__bar"><div class="skill-item__fill" style="width:80%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__label">
+                  <span class="skill-item__name">Interactive App Design</span>
+                </div>
+                <div class="skill-item__bar"><div class="skill-item__fill" style="width:78%"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__label">
+                  <span class="skill-item__name">VR Design &amp; Development</span>
+                </div>
+                <div class="skill-item__bar"><div class="skill-item__fill" style="width:72%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social / Connect -->
+          <div class="about__card reveal">
+            <p class="about__card-title">Connect</p>
+            <div class="social-links">
+              <a href="https://www.instagram.com/madidraws1" target="_blank" rel="noopener" class="social-link">
+                <!-- Instagram icon -->
+                <svg class="social-link__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+                </svg>
+                Instagram
+                <span class="social-link__handle">@madidraws1</span>
+              </a>
+              <a href="https://www.linkedin.com/in/guillerymadi" target="_blank" rel="noopener" class="social-link">
+                <!-- LinkedIn icon -->
+                <svg class="social-link__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" rx="3"/>
+                  <line x1="8" y1="11" x2="8" y2="17"/>
+                  <line x1="8" y1="7" x2="8" y2="9"/>
+                  <path d="M12 17v-4a2 2 0 014 0v4"/>
+                  <line x1="12" y1="11" x2="12" y2="17"/>
+                </svg>
+                LinkedIn
+                <span class="social-link__handle">guillerymadi</span>
+              </a>
+              <a href="https://www.youtube.com/@MedicalIllustrationByMadeleine" target="_blank" rel="noopener" class="social-link">
+                <!-- YouTube icon -->
+                <svg class="social-link__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="5" width="20" height="14" rx="3"/>
+                  <polygon points="10,9 16,12 10,15" fill="currentColor" stroke="none"/>
+                </svg>
+                YouTube
+                <span class="social-link__handle">MedicalIllustrationByMadeleine</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Resume download -->
+          <div class="about__card reveal">
+            <p class="about__card-title">Résumé</p>
+            <!--
+              Link to your CV PDF:
+              <a href="assets/ResumeMadeleineGuillery.pdf" ...>
+            -->
+            <a href="assets/ResumeMadeleineGuillery.pdf" class="btn btn--secondary" style="width:100%; justify-content:center;" download>
+              Download CV / Résumé
+            </a>
+          </div>
+
+        </aside>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       AVAILABILITY BANNER
+       ====================================================================== -->
+  <div class="availability">
+    <div class="availability__inner">
+      <div class="availability__text">
+        <p class="availability__eyebrow">Currently Available</p>
+        <p class="availability__headline">Open for short &amp; long-term projects</p>
+      </div>
+      <a href="#contact" class="btn btn--ghost">Start a Conversation</a>
+    </div>
+  </div>
+
+
+  <!-- ======================================================================
+       PROCESS
+       ====================================================================== -->
+  <section id="process" class="process section">
+    <div class="container">
+
+      <div class="section__header reveal">
+        <p class="section__label">§ 03 — How I Work</p>
+        <h2 class="section__title">Process</h2>
+        <p class="section__subtitle">
+          Every project follows a structured, collaborative workflow designed
+          to ensure scientific accuracy and creative excellence from first
+          brief to final delivery.
+        </p>
+      </div>
+
+      <div class="process__grid">
+
+        <div class="process__step reveal">
+          <div class="process__step-number">I</div>
+          <div>
+            <h3 class="process__step-title">Discovery &amp;<br>Research</h3>
+            <p class="process__step-body">
+              We begin with a thorough brief: understanding the medical subject,
+              the intended audience, the deliverable format, and the clinical or
+              educational goals the work must serve. I research source material,
+              anatomy references, and existing literature before any mark
+              is made.
+            </p>
+          </div>
+        </div>
+
+        <div class="process__step reveal reveal--delay-1">
+          <div class="process__step-number">II</div>
+          <div>
+            <h3 class="process__step-title">Concept &amp;<br>Sketching</h3>
+            <p class="process__step-body">
+              Initial concepts are developed as rough sketches or low-fidelity
+              3D blockouts. This stage is collaborative — you review and
+              approve the compositional approach, viewpoint, and level of
+              detail before I commit to full rendering.
+            </p>
+          </div>
+        </div>
+
+        <div class="process__step reveal reveal--delay-2">
+          <div class="process__step-number">III</div>
+          <div>
+            <h3 class="process__step-title">Development &amp;<br>Refinement</h3>
+            <p class="process__step-body">
+              With the concept locked, I move into detailed rendering and
+              refinement. Rounds of revisions are included — I incorporate
+              your feedback at each stage to ensure the final piece meets
+              both your vision and the anatomical standard.
+            </p>
+          </div>
+        </div>
+
+        <div class="process__step reveal reveal--delay-3">
+          <div class="process__step-number">IV</div>
+          <div>
+            <h3 class="process__step-title">Final Delivery</h3>
+            <p class="process__step-body">
+              Completed work is delivered in all required formats — print-ready
+              TIFF, web-optimized PNG/SVG, video files, or interactive builds
+              depending on the project. Full source files and usage rights are
+              transferred per agreement.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       CONTACT
+       ====================================================================== -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="contact__grid">
+
+        <!-- Left: info -->
+        <div>
+          <h2 class="contact__heading reveal">
+            Let's make something<br>remarkable.
+          </h2>
+          <p class="contact__subtext reveal">
+            Whether you need a surgical illustration, an anatomical animation,
+            a patient-education infographic, or a full interactive visualization —
+            I'd love to hear about your project.
+          </p>
+          <a href="mailto:hello@madeleineguillery.com" class="btn btn--ghost reveal">
+            hello@madeleineguillery.com
+          </a>
+
+          <div class="contact__info reveal">
+            <div class="contact__info-item">
+              <p class="contact__info-label">Based in</p>
+              <p class="contact__info-value">Available for remote &amp; on-site work worldwide</p>
+            </div>
+            <div class="contact__info-item">
+              <p class="contact__info-label">Project types</p>
+              <p class="contact__info-value">Illustration · 3D · Animation · Interactive · VR</p>
+            </div>
+            <div class="contact__info-item">
+              <p class="contact__info-label">Engagement</p>
+              <p class="contact__info-value">Short-term commissions &amp; long-term retainers</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <form class="contact__form reveal" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="project-type">Project Type</label>
+            <select id="project-type" name="project_type">
+              <option value="" disabled selected>Select a project type</option>
+              <option value="illustration">2D Illustration</option>
+              <option value="3d">3D Modeling / Animation</option>
+              <option value="2d-animation">2D Animation</option>
+              <option value="interactive">Interactive / VR</option>
+              <option value="other">Other / Not Sure Yet</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Tell me about your project</label>
+            <textarea id="message" name="message" placeholder="Describe the project, timeline, and any specific requirements..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary" style="width:100%; justify-content:center;">
+            Send Message
+          </button>
+
+          <p class="contact__form-note">
+            I aim to respond to all enquiries within 2 business days.
+          </p>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="footer">
+    <div class="footer__inner">
+
+      <div class="footer__brand">
+        <p class="footer__name">Madeleine Guillery</p>
+        <p class="footer__copy">&copy; 2025 · Medical Visualization Artist · All rights reserved</p>
+      </div>
+
+      <nav class="footer__links" aria-label="Footer navigation">
+        <a href="#portfolio" class="footer__link">Portfolio</a>
+        <a href="#about"     class="footer__link">About</a>
+        <a href="#process"   class="footer__link">Process</a>
+        <a href="#contact"   class="footer__link">Contact</a>
+      </nav>
+
+      <div class="footer__social">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/madidraws1" target="_blank" rel="noopener" class="footer__social-link" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/guillerymadi" target="_blank" rel="noopener" class="footer__social-link" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="3"/>
+            <line x1="8" y1="11" x2="8" y2="17"/>
+            <line x1="8" y1="7" x2="8" y2="9"/>
+            <path d="M12 17v-4a2 2 0 014 0v4"/>
+            <line x1="12" y1="11" x2="12" y2="17"/>
+          </svg>
+        </a>
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@MedicalIllustrationByMadeleine" target="_blank" rel="noopener" class="footer__social-link" aria-label="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="5" width="20" height="14" rx="3"/>
+            <polygon points="10,9 16,12 10,15" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
