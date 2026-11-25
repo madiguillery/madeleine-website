@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Madeleine Guillery — Medical Illustration Artist</title>
-  <meta name="description" content="Multi-disciplinary bio-medical artist specializing in 2D illustration, 3D modeling, animation, and interactive medical visualization. MSc Medical Visualization, Glasgow School of Art.">
+  <meta name="description" content="Medical illustrator and 3D visualization artist for surgical, educational, publication, research and medicolegal work. MSc Medical Visualization &amp; Human Anatomy, Glasgow School of Art and University of Glasgow.">
   <meta name="author" content="Madeleine Guillery">
 
   <!-- Open Graph -->
@@ -37,7 +37,6 @@
       <ul class="nav__links">
         <li><a href="#portfolio" class="nav__link">Portfolio</a></li>
         <li><a href="#about"     class="nav__link">About</a></li>
-        <li><a href="#process"   class="nav__link">Process</a></li>
         <li><a href="#contact"   class="nav__link nav__link--cta">Get In Touch</a></li>
       </ul>
 
@@ -55,7 +54,6 @@
     <ul class="mobile-menu__links">
       <li><a href="#portfolio" class="mobile-menu__link">Portfolio</a></li>
       <li><a href="#about"     class="mobile-menu__link">About</a></li>
-      <li><a href="#process"   class="mobile-menu__link">Process</a></li>
       <li><a href="#contact"   class="mobile-menu__link">Get In Touch</a></li>
     </ul>
   </div>
@@ -76,13 +74,13 @@
         </h1>
 
         <p class="hero__tagline reveal reveal--delay-2">
-          Illustration, 3D modeling,<br>animation and more.
+          Medical illustration<br>&amp; 3D visualization.
         </p>
 
         <p class="hero__bio reveal reveal--delay-2">
-          Multi-disciplinary bio-medical artist thriving at the intersection of
-          art and science — transforming complex medical concepts into captivating
-          visual narratives that make health education inspiring.
+          Surgical, educational, publication, research and medicolegal
+          work, in 2D and 3D: medically accurate, clearly designed, and
+          built with your team.
         </p>
 
         <div class="hero__actions reveal reveal--delay-3">
@@ -101,19 +99,70 @@
         </div>
       </div>
 
-      <!-- Right: hero image -->
+      <!-- Right: hero carousel, one plate per kind of work -->
       <div class="hero__image reveal reveal--delay-2">
-        <div class="hero__image-frame">
+        <div class="hero__image-frame hero__carousel" id="heroCarousel" role="region" aria-roledescription="carousel" aria-label="Featured work">
           <div class="hero__image-inner">
-            <img src="assets/portfolio/aminktober/vascular-orbit-final.jpg" alt="Featured work by Madeleine Guillery — Vascular Anatomy of the Right Orbit">
+            <a href="projects/orbital-teratoma-surgical-illustration.html" class="hero__slide is-active" data-kind="Surgical" data-title="Globe-Sparing Surgery in Neonatal Orbital Teratoma">
+              <img src="assets/portfolio/illustrations/orbital-teratoma/panel-1-intraoperative-exposure.jpg" alt="Intraoperative exposure panel from Globe-Sparing Surgery in Neonatal Orbital Teratoma" style="object-position:center;">
+            </a>
+            <a href="projects/multiple-finger-avulsion.html" class="hero__slide" data-kind="Surgical &middot; Publication" data-title="Multiple Finger Avulsion Injury" aria-hidden="true" tabindex="-1">
+              <img src="assets/portfolio/illustrations/multiple-finger-avulsion/final-plate.jpg" alt="Multiple Finger Avulsion Injury, three-panel surgical plate based on a published case report" style="object-fit:contain;object-position:center;" loading="lazy">
+            </a>
+            <a href="projects/digit-revascularization-vr.html" class="hero__slide" data-kind="3D &amp; Interactive" data-title="Digit Revascularization VR Training Tool" aria-hidden="true" tabindex="-1">
+              <img src="assets/portfolio/thesis/digit-revascularization/vr-injury.jpg" alt="Digit Revascularization VR Training Tool, interactive 3D hand anatomy in virtual reality" style="object-position:35% center;" loading="lazy">
+            </a>
+            <a href="projects/vascular-anatomy-right-orbit.html" class="hero__slide" data-kind="Educational" data-title="Vascular Anatomy of the Right Orbit" aria-hidden="true" tabindex="-1">
+              <img src="assets/portfolio/aminktober/vascular-orbit-final.jpg" alt="Vascular Anatomy of the Right Orbit, labeled teaching plate with English and Latin labels" style="object-position:center;" loading="lazy">
+            </a>
+            <a href="projects/female-reproductive-tract-sectioned.html" class="hero__slide" data-kind="Educational &middot; Pen and ink" data-title="The Female Reproductive Tract, Sectioned" aria-hidden="true" tabindex="-1">
+              <img src="assets/portfolio/aminktober/female-reproductive-tract-final.jpg" alt="The Female Reproductive Tract, Sectioned, pen-and-ink style illustration" style="object-position:center;" loading="lazy">
+            </a>
           </div>
-          <p class="hero__image-caption">Featured Work — Fig. I</p>
+          <p class="hero__image-caption" aria-live="polite">
+            <span class="hero__caption-fig">Fig. I</span> &mdash;
+            <span class="hero__caption-kind">Surgical</span>
+          </p>
+          <div class="hero__carousel-controls">
+            <button type="button" class="hero__arrow" data-dir="-1" aria-label="Previous plate">&lsaquo;</button>
+            <button type="button" class="hero__dot is-active" aria-label="Show plate I" aria-current="true"></button>
+            <button type="button" class="hero__dot" aria-label="Show plate II"></button>
+            <button type="button" class="hero__dot" aria-label="Show plate III"></button>
+            <button type="button" class="hero__dot" aria-label="Show plate IV"></button>
+            <button type="button" class="hero__dot" aria-label="Show plate V"></button>
+            <button type="button" class="hero__arrow" data-dir="1" aria-label="Next plate">&rsaquo;</button>
+            <button type="button" class="hero__pause" aria-label="Pause slideshow" aria-pressed="false">Pause</button>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Plate annotation -->
-    <span class="hero__plate-label">Plate I</span>
+    <span class="hero__plate-label" id="heroPlateLabel">Plate I</span>
+  </section>
+
+
+  <!-- ======================================================================
+       WHY A MEDICAL ILLUSTRATOR
+       ====================================================================== -->
+  <section class="why" aria-labelledby="whyTitle">
+    <div class="container">
+      <h2 class="why__title reveal" id="whyTitle">Why work with a medical illustrator?</h2>
+      <div class="why__grid">
+        <div class="why__item reveal">
+          <h3 class="why__item-title">I know the science</h3>
+          <p>Trained in medical visualization and human anatomy (MSc, Glasgow School of Art &times; University of Glasgow), I work from the clinical literature, not just reference photos.</p>
+        </div>
+        <div class="why__item reveal reveal--delay-1">
+          <h3 class="why__item-title">Medically accurate, clearly designed</h3>
+          <p>Every piece is built to be correct and easy to read, whether it is for surgeons, students, patients, a journal or a courtroom.</p>
+        </div>
+        <div class="why__item reveal reveal--delay-2">
+          <h3 class="why__item-title">Built with your team</h3>
+          <p>You review the sketch before anything is rendered, revisions are included, and you get the formats you need: print, web, video or interactive.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
 
@@ -134,10 +183,9 @@
       <!-- Category filter tabs -->
       <div class="portfolio__filters reveal">
         <button class="filter-btn active" data-filter="all">All Work</button>
-        <button class="filter-btn" data-filter="illustrations">Illustrations</button>
-        <button class="filter-btn" data-filter="thesis">Thesis Project</button>
-        <button class="filter-btn" data-filter="aminktober">AMInktober</button>
-        <button class="filter-btn" data-filter="sketches">Sketches</button>
+        <button class="filter-btn" data-filter="illustrative">Illustrative work</button>
+        <button class="filter-btn" data-filter="3d">3D &amp; Animation work</button>
+        <!-- Add when the first piece is ready: <button class="filter-btn" data-filter="social">Social media work</button> -->
       </div>
 
       <!-- Portfolio grid -->
@@ -145,34 +193,34 @@
 
         <!-- ── ILLUSTRATIONS ─────────────────────────────────────────── -->
 
-        <article class="portfolio__item reveal" data-category="illustrations">
+        <article class="portfolio__item reveal" data-category="illustrative">
           <a href="projects/orbital-teratoma-surgical-illustration.html" style="display:contents;">
             <div class="portfolio__item-image">
               <img src="assets/portfolio/illustrations/orbital-teratoma/panel-1-intraoperative-exposure.jpg" alt="Globe-Sparing Surgery in Neonatal Orbital Teratoma — intraoperative exposure panel">
               <div class="portfolio__overlay">
-                <p class="portfolio__overlay-cat">Illustrations</p>
+                <p class="portfolio__overlay-cat">Illustrative work</p>
                 <h3 class="portfolio__overlay-title">Globe-Sparing Surgery in Neonatal Orbital Teratoma</h3>
               </div>
             </div>
             <div class="portfolio__item-info">
-              <p class="portfolio__item-tag">Illustrations</p>
+              <p class="portfolio__item-tag">Surgical</p>
               <h3 class="portfolio__item-title">Globe-Sparing Surgery in Neonatal Orbital Teratoma</h3>
               <p class="portfolio__item-caption">Photoshop &middot; Digital Illustration · 2026</p>
             </div>
           </a>
         </article>
 
-        <article class="portfolio__item reveal reveal--delay-1" data-category="illustrations">
+        <article class="portfolio__item reveal reveal--delay-1" data-category="illustrative">
           <a href="projects/multiple-finger-avulsion.html" style="display:contents;">
             <div class="portfolio__item-image">
               <img src="assets/portfolio/illustrations/multiple-finger-avulsion/final-plate.jpg" alt="Multiple Finger Avulsion Injury — three-panel surgical illustration series">
               <div class="portfolio__overlay">
-                <p class="portfolio__overlay-cat">Illustrations</p>
+                <p class="portfolio__overlay-cat">Illustrative work</p>
                 <h3 class="portfolio__overlay-title">Multiple Finger Avulsion Injury</h3>
               </div>
             </div>
             <div class="portfolio__item-info">
-              <p class="portfolio__item-tag">Illustrations</p>
+              <p class="portfolio__item-tag">Surgical &middot; Publication</p>
               <h3 class="portfolio__item-title">Multiple Finger Avulsion Injury</h3>
               <p class="portfolio__item-caption">Photoshop &middot; Digital Illustration · 2026</p>
             </div>
@@ -181,51 +229,51 @@
 
         <!-- ── AMINKTOBER ─────────────────────────────────────────────── -->
 
-        <article class="portfolio__item reveal reveal--delay-2" data-category="aminktober">
+        <article class="portfolio__item reveal reveal--delay-2" data-category="illustrative">
           <a href="projects/loxosceles-reclusa-bite.html" style="display:contents;">
             <div class="portfolio__item-image">
               <img src="assets/portfolio/aminktober/recluse-bite-final.jpg" alt="Loxosceles reclusa: Anatomy of a Bite — brown recluse spider beside a necrotic bite lesion" style="object-fit:contain; background:#fff;">
               <div class="portfolio__overlay">
-                <p class="portfolio__overlay-cat">AMInktober</p>
+                <p class="portfolio__overlay-cat">Illustrative work</p>
                 <h3 class="portfolio__overlay-title">Loxosceles reclusa: Anatomy of a Bite</h3>
               </div>
             </div>
             <div class="portfolio__item-info">
-              <p class="portfolio__item-tag">AMInktober</p>
+              <p class="portfolio__item-tag">Educational</p>
               <h3 class="portfolio__item-title">Loxosceles reclusa: Anatomy of a Bite</h3>
               <p class="portfolio__item-caption">Photoshop &middot; Digital Illustration · 2026</p>
             </div>
           </a>
         </article>
 
-        <article class="portfolio__item reveal reveal--delay-3" data-category="aminktober">
+        <article class="portfolio__item reveal reveal--delay-3" data-category="illustrative">
           <a href="projects/vascular-anatomy-right-orbit.html" style="display:contents;">
             <div class="portfolio__item-image">
               <img src="assets/portfolio/aminktober/vascular-orbit-final.jpg" alt="Vascular Anatomy of the Right Orbit — labeled arteries, veins and nerves" style="object-fit:contain; background:#fff;">
               <div class="portfolio__overlay">
-                <p class="portfolio__overlay-cat">AMInktober</p>
+                <p class="portfolio__overlay-cat">Illustrative work</p>
                 <h3 class="portfolio__overlay-title">Vascular Anatomy of the Right Orbit</h3>
               </div>
             </div>
             <div class="portfolio__item-info">
-              <p class="portfolio__item-tag">AMInktober</p>
+              <p class="portfolio__item-tag">Educational</p>
               <h3 class="portfolio__item-title">Vascular Anatomy of the Right Orbit</h3>
               <p class="portfolio__item-caption">Photoshop &middot; Digital Illustration · 2026</p>
             </div>
           </a>
         </article>
 
-        <article class="portfolio__item reveal reveal--delay-1" data-category="aminktober">
+        <article class="portfolio__item reveal reveal--delay-1" data-category="illustrative">
           <a href="projects/female-reproductive-tract-sectioned.html" style="display:contents;">
             <div class="portfolio__item-image">
               <img src="assets/portfolio/aminktober/female-reproductive-tract-final.jpg" alt="The Female Reproductive Tract, Sectioned — pen-and-ink style illustration" style="object-fit:contain; background:#fff;">
               <div class="portfolio__overlay">
-                <p class="portfolio__overlay-cat">AMInktober</p>
+                <p class="portfolio__overlay-cat">Illustrative work</p>
                 <h3 class="portfolio__overlay-title">The Female Reproductive Tract, Sectioned</h3>
               </div>
             </div>
             <div class="portfolio__item-info">
-              <p class="portfolio__item-tag">AMInktober</p>
+              <p class="portfolio__item-tag">Educational</p>
               <h3 class="portfolio__item-title">The Female Reproductive Tract, Sectioned</h3>
               <p class="portfolio__item-caption">Pen-and-Ink Style Illustration · 2026</p>
             </div>
@@ -234,17 +282,17 @@
 
         <!-- ── SKETCHES ───────────────────────────────────────────────── -->
 
-        <article class="portfolio__item reveal reveal--delay-2" data-category="sketches">
+        <article class="portfolio__item reveal reveal--delay-2" data-category="illustrative">
           <a href="projects/sketches.html" style="display:contents;">
             <div class="portfolio__item-image">
               <img src="assets/portfolio/sketches/sketches-collection.jpg" alt="Collage of four anatomical and surgical sketches">
               <div class="portfolio__overlay">
-                <p class="portfolio__overlay-cat">Collection &middot; 4 sketches</p>
+                <p class="portfolio__overlay-cat">Illustrative work &middot; 4 sketches</p>
                 <h3 class="portfolio__overlay-title">Sketches</h3>
               </div>
             </div>
             <div class="portfolio__item-info">
-              <p class="portfolio__item-tag">Sketches &middot; Collection</p>
+              <p class="portfolio__item-tag">Studies &amp; works in progress</p>
               <h3 class="portfolio__item-title">Sketches</h3>
               <p class="portfolio__item-caption">Gallery of 4 studies &amp; works in progress</p>
             </div>
@@ -253,17 +301,17 @@
 
         <!-- ── THESIS PROJECT ─────────────────────────────────────────── -->
 
-        <article class="portfolio__item reveal" data-category="thesis">
+        <article class="portfolio__item reveal" data-category="3d">
           <a href="projects/digit-revascularization-vr.html" style="display:contents;">
             <div class="portfolio__item-image">
               <img src="assets/portfolio/thesis/digit-revascularization/vr-injury.jpg" alt="Digit Revascularization VR Training Tool — isolated anatomy view">
               <div class="portfolio__overlay">
-                <p class="portfolio__overlay-cat">Thesis Project</p>
+                <p class="portfolio__overlay-cat">3D &amp; Animation work</p>
                 <h3 class="portfolio__overlay-title">Digit Revascularization VR Training Tool</h3>
               </div>
             </div>
             <div class="portfolio__item-info">
-              <p class="portfolio__item-tag">Thesis Project</p>
+              <p class="portfolio__item-tag">Surgical training &middot; 3D &amp; VR</p>
               <h3 class="portfolio__item-title">Digit Revascularization VR Training Tool</h3>
               <p class="portfolio__item-caption">MSc Medical Visualization · Glasgow School of Art</p>
             </div>
@@ -442,81 +490,6 @@
 
 
   <!-- ======================================================================
-       PROCESS
-       ====================================================================== -->
-  <section id="process" class="process section">
-    <div class="container">
-
-      <div class="section__header reveal">
-        <p class="section__label">§ 03 — How I Work</p>
-        <h2 class="section__title">Process</h2>
-        <p class="section__subtitle">
-          Every project follows a structured, collaborative workflow designed
-          to ensure scientific accuracy and creative excellence from first
-          brief to final delivery.
-        </p>
-      </div>
-
-      <div class="process__grid">
-
-        <div class="process__step reveal">
-          <div class="process__step-number">I</div>
-          <div>
-            <h3 class="process__step-title">Discovery &amp;<br>Research</h3>
-            <p class="process__step-body">
-              We begin with a thorough brief: understanding the medical subject,
-              the intended audience, the deliverable format, and the clinical or
-              educational goals the work must serve. I research source material,
-              anatomy references, and existing literature before any mark
-              is made.
-            </p>
-          </div>
-        </div>
-
-        <div class="process__step reveal reveal--delay-1">
-          <div class="process__step-number">II</div>
-          <div>
-            <h3 class="process__step-title">Concept &amp;<br>Sketching</h3>
-            <p class="process__step-body">
-              Initial concepts are developed as rough sketches or low-fidelity
-              3D blockouts. This stage is collaborative — you review and
-              approve the compositional approach, viewpoint, and level of
-              detail before I commit to full rendering.
-            </p>
-          </div>
-        </div>
-
-        <div class="process__step reveal reveal--delay-2">
-          <div class="process__step-number">III</div>
-          <div>
-            <h3 class="process__step-title">Development &amp;<br>Refinement</h3>
-            <p class="process__step-body">
-              With the concept approved, I move into detailed rendering and
-              refinement. Rounds of revisions are included, so the final piece
-              meets both your vision and the anatomical standard.
-            </p>
-          </div>
-        </div>
-
-        <div class="process__step reveal reveal--delay-3">
-          <div class="process__step-number">IV</div>
-          <div>
-            <h3 class="process__step-title">Final Delivery</h3>
-            <p class="process__step-body">
-              Completed work is delivered in all required formats — print-ready
-              TIFF, web-optimized PNG/SVG, video files, or interactive builds
-              depending on the project. Full source files and usage rights are
-              transferred per agreement.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ======================================================================
        CONTACT
        ====================================================================== -->
   <section id="contact" class="contact">
@@ -531,6 +504,11 @@
           <p class="contact__subtext reveal">
             From surgical illustration to interactive visualization,
             I'd love to hear about your project.
+          </p>
+          <p class="contact__subtext contact__process reveal">
+            How I work: we agree the brief, you approve a sketch, I refine with
+            revisions included, and you receive print, web, video or interactive
+            files as the project needs.
           </p>
           <a href="mailto:madi.guillery@gmail.com" class="btn btn--ghost reveal">
             madi.guillery@gmail.com
@@ -602,7 +580,6 @@
       <nav class="footer__links" aria-label="Footer navigation">
         <a href="#portfolio" class="footer__link">Portfolio</a>
         <a href="#about"     class="footer__link">About</a>
-        <a href="#process"   class="footer__link">Process</a>
         <a href="#contact"   class="footer__link">Contact</a>
       </nav>
 

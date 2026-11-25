@@ -279,4 +279,91 @@
 
   window.addEventListener('scroll', highlightNav, { passive: true });
 
+  /* --------------------------------------------------------------------------
+     Hero carousel: one plate per kind of work
+     -------------------------------------------------------------------------- */
+  const carousel = document.getElementById('heroCarousel');
+  if (carousel) {
+    const slides     = Array.from(carousel.querySelectorAll('.hero__slide'));
+    const dots       = Array.from(carousel.querySelectorAll('.hero__dot'));
+    const figEl      = carousel.querySelector('.hero__caption-fig');
+    const kindEl     = carousel.querySelector('.hero__caption-kind');
+    const pauseBtn   = carousel.querySelector('.hero__pause');
+    const plateLabel = document.getElementById('heroPlateLabel');
+    const numerals   = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const INTERVAL   = 5000;
+    let current = 0;
+    let timer   = null;
+    let userPaused = reduceMotion;
+
+    function show(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        const active = i === current;
+        slide.classList.toggle('is-active', active);
+        slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+        slide.tabIndex = active ? 0 : -1;
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === current);
+        if (i === current) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+      const n = numerals[current] || String(current + 1);
+      if (figEl)      figEl.textContent  = `Fig. ${n}`;
+      if (kindEl)     kindEl.textContent = slides[current].dataset.kind || '';
+      if (plateLabel) plateLabel.textContent = `Plate ${n}`;
+    }
+
+    function start() {
+      stop();
+      if (!userPaused && slides.length > 1) {
+        timer = setInterval(() => show(current + 1), INTERVAL);
+      }
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    function setPaused(paused) {
+      userPaused = paused;
+      if (pauseBtn) {
+        pauseBtn.textContent = paused ? 'Play' : 'Pause';
+        pauseBtn.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+        pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      }
+      paused ? stop() : start();
+    }
+
+    carousel.querySelectorAll('.hero__arrow').forEach(btn => {
+      btn.addEventListener('click', () => {
+        show(current + parseInt(btn.dataset.dir, 10));
+        start();
+      });
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => { show(i); start(); });
+    });
+    if (pauseBtn) pauseBtn.addEventListener('click', () => setPaused(!userPaused));
+
+    // Pause while someone is looking closely or using the keyboard inside it
+    carousel.addEventListener('mouseenter', stop);
+    carousel.addEventListener('mouseleave', start);
+    carousel.addEventListener('focusin', stop);
+    carousel.addEventListener('focusout', e => {
+      if (!carousel.contains(e.relatedTarget)) start();
+    });
+    carousel.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  { show(current - 1); }
+      if (e.key === 'ArrowRight') { show(current + 1); }
+    });
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? stop() : start();
+    });
+
+    setPaused(userPaused);
+    show(0);
+  }
+
 })();
