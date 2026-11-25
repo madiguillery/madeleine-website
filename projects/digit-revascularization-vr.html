@@ -130,54 +130,78 @@
 
 
   <!-- ======================================================================
-       PROCESS — storyboarding, reference, texturing, and scripting
+       PROCESS — storyboarding, modeling and texturing, then programming
        ====================================================================== -->
   <section class="section" style="padding-top:0;">
     <div class="container">
       <h2 class="project-subhead reveal">Process</h2>
-
-      <div class="project-plate-grid">
-        <figure class="project-plate-grid__item reveal">
-          <img src="../assets/portfolio/thesis/digit-revascularization/process-storyboard.jpg"
-               alt="Hand-drawn storyboard and initial concept notes for the training tool">
-          <figcaption><span class="project-plate-grid__num">01</span>Storyboard and initial concept</figcaption>
-        </figure>
-
-        <figure class="project-plate-grid__item reveal reveal--delay-1">
-          <img src="../assets/portfolio/thesis/digit-revascularization/process-reference-photo.jpg"
-               alt="Reference photography of a raised hand used for modeling proportions">
-          <figcaption><span class="project-plate-grid__num">02</span>Reference photography for hand proportions</figcaption>
-        </figure>
-
-        <figure class="project-plate-grid__item reveal">
-          <img src="../assets/portfolio/thesis/digit-revascularization/process-texture-layers.jpg"
-               alt="Photoshop layer stack used to build the skin texture material">
-          <figcaption><span class="project-plate-grid__num">03</span>Building the skin texture material</figcaption>
-        </figure>
-
-        <figure class="project-plate-grid__item reveal reveal--delay-1">
-          <img src="../assets/portfolio/thesis/digit-revascularization/process-segmentation.jpg"
-               alt="Anatomical bone segmentation naming list">
-          <figcaption><span class="project-plate-grid__num">04</span>Anatomical bone segmentation</figcaption>
-        </figure>
-
-        <figure class="project-plate-grid__item reveal">
-          <img src="../assets/portfolio/thesis/digit-revascularization/process-model-progress.jpg"
-               alt="Digit model progression from vascular layer to finished skin surface">
-          <figcaption><span class="project-plate-grid__num">05</span>Model progression, vascular layer to finished surface</figcaption>
-        </figure>
-
-        <figure class="project-plate-grid__item reveal reveal--delay-1">
-          <img src="../assets/portfolio/thesis/digit-revascularization/process-code-opacity.jpg"
-               alt="Unity C# script controlling layer opacity">
-          <figcaption><span class="project-plate-grid__num">06</span>Scripting layer opacity control in Unity</figcaption>
-        </figure>
-
-        <figure class="project-plate-grid__item reveal">
-          <img src="../assets/portfolio/thesis/digit-revascularization/process-code-fingers.jpg"
-               alt="Unity C# script cycling through finger injury models">
-          <figcaption><span class="project-plate-grid__num">07</span>Scripting model selection and cycling</figcaption>
-        </figure>
+      <div class="process-stages">
+      <div class="process-stage">
+        <div class="process-stage__intro reveal">
+          <span class="process-stage__step">Stage 1</span>
+          <h3 class="process-stage__title">Storyboarding and reference</h3>
+          <p class="process-stage__text">I started by storyboarding the training flow and the initial concept, then used reference photography of a raised hand to get the proportions right before modeling.</p>
+        </div>
+        <div class="process-board">
+          <figure class="process-board__item reveal">
+            <img src="../assets/portfolio/thesis/digit-revascularization/process-storyboard.jpg"
+                 alt="Hand-drawn storyboard and initial concept notes for the training tool" loading="lazy">
+            <figcaption>Storyboard and initial concept</figcaption>
+          </figure>
+          <span class="process-board__arrow" aria-hidden="true">&rarr;</span>
+          <figure class="process-board__item reveal">
+            <img src="../assets/portfolio/thesis/digit-revascularization/process-reference-photo.jpg"
+                 alt="Reference photography of a raised hand used for modeling proportions" loading="lazy">
+            <figcaption>Reference for hand proportions</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="process-stage">
+        <div class="process-stage__intro reveal">
+          <span class="process-stage__step">Stage 2</span>
+          <h3 class="process-stage__title">Modeling and texturing</h3>
+          <p class="process-stage__text">I segmented and named the bones anatomically, built the skin texture material from layers in Photoshop, and developed each digit model from its vascular layer to a finished skin surface.</p>
+        </div>
+        <div class="process-board">
+          <figure class="process-board__item reveal">
+            <img src="../assets/portfolio/thesis/digit-revascularization/process-segmentation.jpg"
+                 alt="Anatomical bone segmentation naming list" loading="lazy">
+            <figcaption>Anatomical bone segmentation</figcaption>
+          </figure>
+          <span class="process-board__arrow" aria-hidden="true">&rarr;</span>
+          <figure class="process-board__item reveal">
+            <img src="../assets/portfolio/thesis/digit-revascularization/process-texture-layers.jpg"
+                 alt="Photoshop layer stack used to build the skin texture material" loading="lazy">
+            <figcaption>Building the skin texture</figcaption>
+          </figure>
+          <span class="process-board__arrow" aria-hidden="true">&rarr;</span>
+          <figure class="process-board__item reveal">
+            <img src="../assets/portfolio/thesis/digit-revascularization/process-model-progress.jpg"
+                 alt="Digit model progression from vascular layer to finished skin surface" loading="lazy">
+            <figcaption>Vascular layer to finished surface</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="process-stage">
+        <div class="process-stage__intro reveal">
+          <span class="process-stage__step">Stage 3</span>
+          <h3 class="process-stage__title">Programming the interactions in Unity</h3>
+          <p class="process-stage__text">In Unity, I wrote C# scripts that let trainees fade anatomical layers in and out and cycle through the different finger injury models.</p>
+        </div>
+        <div class="process-board">
+          <figure class="process-board__item reveal">
+            <img src="../assets/portfolio/thesis/digit-revascularization/process-code-opacity.jpg"
+                 alt="Unity C# script controlling layer opacity" loading="lazy">
+            <figcaption>Layer opacity control</figcaption>
+          </figure>
+          <span class="process-board__arrow" aria-hidden="true">&rarr;</span>
+          <figure class="process-board__item reveal">
+            <img src="../assets/portfolio/thesis/digit-revascularization/process-code-fingers.jpg"
+                 alt="Unity C# script cycling through finger injury models" loading="lazy">
+            <figcaption>Cycling injury models</figcaption>
+          </figure>
+        </div>
+      </div>
       </div>
     </div>
   </section>

@@ -1783,3 +1783,105 @@ button {
   }
   .why__title { font-size: var(--text-2xl); margin-bottom: var(--sp-6); }
 }
+
+
+/* --------------------------------------------------------------------------
+   Process stages: a titled band with a short write-up, then a rounded
+   board of that stage's images linked by arrows
+   -------------------------------------------------------------------------- */
+.process-stages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
+}
+
+.process-stage__intro {
+  background: var(--c-bg-alt);
+  border-left: 3px solid var(--c-accent);
+  padding: var(--sp-6) var(--sp-8);
+  margin-bottom: var(--sp-6);
+}
+
+.process-stage__step {
+  display: block;
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: var(--sp-2);
+}
+
+.process-stage__title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--text-2xl);
+  color: var(--c-text);
+  margin-bottom: var(--sp-3);
+}
+
+.process-stage__text {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--c-text-muted);
+  max-width: 68ch;
+}
+
+.process-board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  background: var(--c-surface-tint);
+  border: 1px solid var(--c-border-light);
+  border-radius: 20px;
+  padding: var(--sp-8);
+}
+
+.process-board__item {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+}
+
+.process-board__item img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(42, 32, 28, 0.08);
+}
+
+.process-board__item figcaption {
+  margin-top: var(--sp-3);
+  font-size: var(--text-sm);
+  color: var(--c-text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.process-board__arrow {
+  flex: 0 0 auto;
+  color: var(--c-accent);
+  font-size: var(--text-2xl);
+  line-height: 1;
+}
+
+.process-board--stack {
+  flex-direction: column;
+}
+
+.process-board--stack .process-board__item { width: 100%; }
+
+@media (max-width: 760px) {
+  .process-stage__intro { padding: var(--sp-5, 1.25rem) var(--sp-5, 1.25rem); }
+  .process-board {
+    flex-direction: column;
+    padding: var(--sp-5, 1.25rem);
+  }
+  .process-board__item { width: 100%; }
+  .process-board__arrow { transform: rotate(90deg); }
+}
