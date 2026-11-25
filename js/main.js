@@ -296,6 +296,7 @@
     let current = 0;
     let timer   = null;
     let userPaused = reduceMotion;
+    let holding    = false; // pointer over it, or keyboard focus inside it
 
     function show(index) {
       current = (index + slides.length) % slides.length;
@@ -318,7 +319,7 @@
 
     function start() {
       stop();
-      if (!userPaused && slides.length > 1) {
+      if (!userPaused && !holding && slides.length > 1) {
         timer = setInterval(() => show(current + 1), INTERVAL);
       }
     }
@@ -348,11 +349,17 @@
     if (pauseBtn) pauseBtn.addEventListener('click', () => setPaused(!userPaused));
 
     // Pause while someone is looking closely or using the keyboard inside it
-    carousel.addEventListener('mouseenter', stop);
-    carousel.addEventListener('mouseleave', start);
-    carousel.addEventListener('focusin', stop);
+    carousel.addEventListener('mouseenter', () => { holding = true; stop(); });
+    carousel.addEventListener('mouseleave', () => {
+      holding = carousel.contains(document.activeElement);
+      start();
+    });
+    carousel.addEventListener('focusin', () => { holding = true; stop(); });
     carousel.addEventListener('focusout', e => {
-      if (!carousel.contains(e.relatedTarget)) start();
+      if (!carousel.contains(e.relatedTarget) && !carousel.matches(':hover')) {
+        holding = false;
+        start();
+      }
     });
     carousel.addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft')  { show(current - 1); }
