@@ -186,7 +186,7 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
 </script>
 <script>
 if (window.self !== window.top) document.documentElement.classList.add("embedded");
-setTimeout(function () { var s = document.getElementById("status"); if (s && !s.hidden && !window.__footReady) s.textContent = "The 3D model is taking a while. Check your connection, then reload the page."; }, 25000);
+setTimeout(function () { var s = document.getElementById("status"); if (s && !s.hidden && !window.__footReady && /^Loading/.test(s.textContent)) s.textContent = "The 3D model is taking a while. Check your connection, then reload the page."; }, 25000);
 </script>
 <script type="module">
 import * as THREE from "three";
