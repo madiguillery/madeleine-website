@@ -184,7 +184,10 @@ a.btn{text-decoration:none;display:inline-flex;align-items:center}
   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
 } }
 </script>
-<script>if (window.self !== window.top) document.documentElement.classList.add("embedded");</script>
+<script>
+if (window.self !== window.top) document.documentElement.classList.add("embedded");
+setTimeout(function () { var s = document.getElementById("status"); if (s && !s.hidden && !window.__footReady) s.textContent = "The 3D model is taking a while. Check your connection, then reload the page."; }, 25000);
+</script>
 <script type="module">
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
@@ -224,7 +227,9 @@ const GROUPS = [["Tarsals", "tarsal"], ["Metatarsals", "metatarsal"], ["Phalange
 
 // ---- renderer and scene
 const canvas = $("canvas"), view = $("view"), statusEl = $("status");
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); }
+catch (e) { statusEl.textContent = "This browser can't show 3D models (WebGL is turned off or not supported). Try another browser or device."; throw e; }
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
@@ -446,7 +451,7 @@ $("rot").addEventListener("input", e => { spinning = false; spin.rotation.y = TH
 
 resize();
 load().then(n => {
-  statusEl.hidden = true; home(); paint();
+  window.__footReady = true; statusEl.hidden = true; home(); paint();
   if (n < 28) console.warn("Only " + n + " bones found");
 }).catch(e => { console.error(e); statusEl.textContent = "The model could not load (" + (e && e.message || e) + "). Reload the page to try again."; });
 renderer.setAnimationLoop(() => {
