@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Foot Bone Explorer — Madeleine Guillery</title>
+<meta name="description" content="An interactive 3D model of the 28 bones of the right foot and ankle, with a quiz, by medical illustrator Madeleine Guillery.">
+<meta name="author" content="Madeleine Guillery">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Sora:wght@800&display=swap">
+<style>
+/* VOICE: calm, clinical teaching tool, true to Madeleine's 2024 Unity app "Foot Bone Explorer".
+   IDEA: a lit specimen in a dark room with a key card beside it, never on top of it.
+   PICTURE: the 28-bone foot, each bone in its own colour; the bone in focus glows, the rest dim.
+   COLOUR and TYPE: deep navy with a soft glow, teal title shadow, light-blue pill buttons; Montserrat.
+   LAYOUT: header across the top; side panel on the left with all text; the foot alone on the right; rotate slider under it. Stacks on phones. */
+:root{color-scheme:dark;--bg:#0a0c1f;--bg2:#161a33;--ink:#f4f6fb;--muted:#aab2cc;--teal:#13808c;--blue:#64b5f6;--ok:#3ddc97;--bad:#ff6b6b;--panel:rgba(22,26,52,.92);--line:rgba(255,255,255,.14)}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Montserrat,system-ui,sans-serif;overflow-x:clip}
+.app{--side:270px;display:grid;grid-template-columns:var(--side) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;height:100svh;min-height:600px;background:radial-gradient(55% 60% at 64% 50%,#262b52 0%,var(--bg2) 42%,var(--bg) 100%)}
+header{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding:16px max(3vw,16px) 8px}
+.title{margin:0;font-family:Sora,Montserrat,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1.05;text-wrap:balance;color:#fff}
+header .title{font-size:clamp(30px,3.8vw,46px)}
+.tabs{display:flex;gap:6px;background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:999px;padding:4px}
+.tab{font:500 15px Montserrat,sans-serif;color:var(--muted);background:none;border:0;border-radius:999px;padding:9px 18px;min-height:40px;cursor:pointer}
+.tab[aria-selected=true]{background:var(--blue);color:#fff}
+.btn{font:500 15px Montserrat,sans-serif;color:#fff;background:var(--blue);border:0;border-radius:14px;padding:10px 18px;min-height:44px;cursor:pointer;box-shadow:0 4px 18px rgba(100,181,246,.25)}
+.btn.ghost{background:rgba(255,255,255,.08);border:1px solid var(--line);box-shadow:none}
+.btn:hover{filter:brightness(1.08)}
+button:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:2px}
+aside{grid-column:1;grid-row:2/4;align-self:start;max-height:calc(100% - 24px);margin:8px 0 16px max(3vw,16px);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;overflow:auto;display:grid;align-content:start;gap:16px}
+.app.list-open{--side:370px}.app.quiz-on{--side:330px}
+.toggle{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:14px;font:600 14px Montserrat,sans-serif;color:var(--ink);background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-height:44px;cursor:pointer}
+.toggle::after{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.toggle[aria-expanded=true]::after{transform:translateY(2px) rotate(-135deg)}
+.view{grid-column:2;grid-row:2;position:relative;min-height:320px}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+canvas.hot{cursor:pointer}
+.status{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);pointer-events:none;text-align:center;padding:24px}
+.controls{grid-column:2;grid-row:3;display:flex;align-items:center;justify-content:center;gap:14px;padding:6px max(3vw,16px) 18px}
+.controls span{font-size:13px;color:var(--muted)}
+.controls input{width:min(420px,60%)}
+input[type=range]{-webkit-appearance:none;appearance:none;height:14px;border-radius:999px;background:linear-gradient(90deg,#fff var(--p,50%),#d9dde8 var(--p,50%));box-shadow:0 0 22px rgba(255,255,255,.22)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:#f2f3f7;border:1px solid #c9cedb;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+input[type=range]::-moz-range-thumb{width:34px;height:34px;border-radius:50%;background:#f2f3f7;border:1px solid #c9cedb}
+/* explore panel */
+.name{display:flex;gap:12px;align-items:center;font-size:clamp(22px,2.2vw,28px);font-weight:500;line-height:1.1;margin:0}
+.dot{width:22px;height:22px;border-radius:50%;flex:none;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.kind{margin:4px 0 0;color:var(--blue);font-weight:600;font-size:14px}
+.fact{margin:6px 0 0;color:var(--muted);font-size:15px}
+.key h2{font-size:13px;font-weight:600;color:var(--muted);margin:10px 0 6px}
+.key ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.key button{display:flex;gap:10px;align-items:center;width:100%;text-align:left;font:500 14px Montserrat,sans-serif;color:var(--ink);background:none;border:0;border-radius:10px;padding:7px 8px;min-height:36px;cursor:pointer}
+.key button:hover,.key button[aria-pressed=true]{background:rgba(255,255,255,.08)}
+.key .dot{width:14px;height:14px}
+/* quiz panel */
+.qtop{display:grid;gap:6px;color:var(--muted);font-size:14px}
+.qline{display:flex;justify-content:space-between}
+.bar{height:6px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--blue);transition:width .3s}
+.prompt{font-size:clamp(22px,2.4vw,28px);font-weight:500;line-height:1.2;margin:0}
+.prompt b{color:#fff;font-weight:600;text-decoration:underline;text-decoration-color:var(--blue);text-underline-offset:6px}
+.choices{display:grid;gap:8px}
+.choice{font:500 15px Montserrat,sans-serif;text-align:left;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-height:46px;cursor:pointer}
+.choice.right{border-color:var(--ok);background:rgba(61,220,151,.18)}
+.choice.wrong{border-color:var(--bad);background:rgba(255,107,107,.18)}
+.feedback{min-height:1.5em;margin:0;font-weight:600}
+.feedback.ok{color:var(--ok)}.feedback.no{color:var(--bad)}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+/* overlays */
+.intro{position:absolute;inset:0;display:grid;grid-template-rows:auto 1fr auto;padding:clamp(20px,4vw,48px)}
+.intro .title{font-size:clamp(44px,8.5vw,104px);text-align:center}
+.intro .row{justify-self:end;flex-direction:column}
+.intro .btn{min-width:180px;font-size:20px;padding:14px 26px}
+.app.intro-on{grid-template-columns:minmax(0,1fr)}
+.app.intro-on header,.app.intro-on aside,.app.intro-on .controls{display:none}
+.app.intro-on .view{grid-column:1;grid-row:1/4}
+.overlay{position:fixed;inset:0;display:grid;place-items:center;padding:24px;background:rgba(8,10,26,.6);z-index:5}
+.sheet{background:#161a35;border:1px solid var(--line);border-radius:18px;padding:24px;max-width:560px;width:100%;max-height:calc(100svh - 48px);overflow:auto}
+.sheet h2{margin:0 0 10px;font-size:24px;font-weight:600}
+.sheet h3{margin:18px 0 6px;font-size:16px;color:var(--blue)}
+.sheet p,.sheet li{color:var(--muted);margin:0 0 8px}
+.sheet ul{padding-left:20px;margin:0}
+.sets{display:grid;gap:8px;margin:12px 0 16px}
+.set{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.set input{width:20px;height:20px;accent-color:var(--blue)}
+.set small{color:var(--muted);margin-left:auto;white-space:nowrap}
+.score{font-size:56px;font-weight:600;line-height:1;margin:6px 0}
+[hidden]{display:none!important}
+a.btn{text-decoration:none;display:inline-flex;align-items:center}
+.embedded .home{display:none}
+@media(max-width:760px){
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 56svh auto auto;height:auto;min-height:100svh}
+  .view{grid-column:1;grid-row:2}
+  .controls{grid-column:1;grid-row:3;padding-bottom:8px}
+  aside{grid-column:1;grid-row:4;margin:0 16px 20px;overflow:visible;max-height:none}
+  .app.intro-on{grid-template-rows:100svh}
+  .app.intro-on .view{grid-row:1}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="app intro-on" id="app">
+  <header>
+    <h1 class="title">Foot Bone Explorer</h1>
+    <div class="tabs" role="tablist" aria-label="Mode">
+      <button class="tab" role="tab" id="tabExplore" aria-selected="true" type="button">Explore</button>
+      <button class="tab" role="tab" id="tabQuiz" aria-selected="false" type="button">Quiz</button>
+    </div>
+    <div class="row"><a class="btn ghost home" id="homeLink" href="/projects/foot-bone-explorer.html" target="_top">About this project</a><button class="btn ghost" id="infoBtn" type="button">Info</button></div>
+  </header>
+
+  <aside>
+    <section id="explore" aria-live="polite">
+      <p class="name"><span class="dot" id="bDot" hidden></span><span id="bName">Tap a bone</span></p>
+      <p class="kind" id="bKind">Hover or tap any bone, or pick one below</p>
+      <p class="fact" id="bFact"></p>
+      <button class="toggle" id="keyToggle" type="button" aria-expanded="false" aria-controls="key">All bones</button>
+      <div class="key" id="key" hidden></div>
+    </section>
+    <section id="quiz" hidden aria-live="polite" style="display:grid;gap:14px">
+      <div class="qtop"><div class="qline"><span id="qCount"></span><span id="qScore"></span></div><div class="bar"><i id="qBar"></i></div></div>
+      <p class="prompt" id="qPrompt"></p>
+      <div class="choices" id="qChoices"></div>
+      <p class="feedback" id="qFeedback"></p>
+      <div class="row"><button class="btn" id="qNext" type="button" hidden>Next</button><button class="btn ghost" id="qQuit" type="button">End quiz</button></div>
+    </section>
+  </aside>
+
+  <div class="view" id="view">
+    <canvas id="canvas" aria-label="3D model of the bones of the right foot and ankle"></canvas>
+    <div class="status" id="status">Loading the foot model…</div>
+    <div class="intro" id="intro">
+      <h1 class="title">Foot Bone Explorer</h1><span></span>
+      <div class="row"><button class="btn" id="play" type="button">Play</button><button class="btn" id="introQuiz" type="button">Quiz</button><button class="btn" id="introInfo" type="button">INFO</button></div>
+    </div>
+  </div>
+
+  <div class="controls"><span>Rotate</span><input type="range" id="rot" min="-180" max="180" value="0" aria-label="Rotate the foot"><button class="btn ghost" id="reset" type="button">Reset view</button></div>
+
+  <div class="overlay" id="info" hidden role="dialog" aria-modal="true" aria-labelledby="infoH">
+    <div class="sheet">
+      <h2 id="infoH">How to use</h2>
+      <ul>
+        <li>Drag to turn the foot, or use the Rotate slider. Pinch or scroll to zoom.</li>
+        <li>Hover or tap a bone to see its name. You can also pick a bone from the list.</li>
+        <li>In Quiz, either find the named bone on the model or name the bone that is lit up.</li>
+      </ul>
+      <h3>The bones in this model</h3>
+      <p>The right foot and ankle: 7 tarsals, 5 metatarsals and 14 phalanges, with the lower ends of the tibia and fibula. 28 bones in all. A bone lights up in its own colour when you select it.</p>
+      <div class="row" style="margin-top:16px"><button class="btn" id="infoClose" type="button">Back</button></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="quizSetup" hidden role="dialog" aria-modal="true" aria-labelledby="setupH">
+    <form class="sheet" id="setupForm">
+      <h2 id="setupH">Quiz yourself</h2>
+      <h3>Which bones?</h3>
+      <div class="sets" id="sets"></div>
+      <h3>How?</h3>
+      <div class="sets">
+        <label class="set"><input type="radio" name="how" value="find" checked>Find it: tap the named bone</label>
+        <label class="set"><input type="radio" name="how" value="name">Name it: pick the name of the lit bone</label>
+      </div>
+      <div class="row"><button class="btn" type="submit">Start</button><button class="btn ghost" id="setupCancel" type="button">Back to explore</button></div>
+    </form>
+  </div>
+
+  <div class="overlay" id="results" hidden role="dialog" aria-modal="true" aria-labelledby="resH">
+    <div class="sheet">
+      <h2 id="resH">Quiz done</h2>
+      <p class="score" id="rScore"></p>
+      <p id="rNote"></p>
+      <p id="rMiss"></p>
+      <div class="row" style="margin-top:16px"><button class="btn" id="rAgain" type="button">Try again</button><button class="btn ghost" id="rMissBtn" type="button">Practise the misses</button><button class="btn ghost" id="rExplore" type="button">Explore</button></div>
+    </div>
+  </div>
+</main>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script>if (window.self !== window.top) document.documentElement.classList.add("embedded");</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+{
+const $ = id => document.getElementById(id);
+const ORD = ["", "great toe", "second toe", "third toe", "fourth toe", "fifth toe"];
+const MT = ["", "First", "Second", "Third", "Fourth", "Fifth"];
+// The colour each bone turns when selected. Neighbouring bones get far-apart hues.
+const COLOR = {Calcaneus:"#e2b183",Talus:"#725ad8",Navicular:"#8de283",Cuboid:"#d85a8c",Medial_Cuneiform:"#83c4e2",Intermediate_Cuneiform:"#d6d85a",Lateral_Cuneiform:"#c883e2",Tibia:"#5ad891",Fibula:"#e29183",Metatarsal_1:"#5a6cd8",Metatarsal_2:"#ade283",Metatarsal_3:"#d85ab6",Metatarsal_4:"#83e2e0",Metatarsal_5:"#d8b15a",Proximal_Phalanx_1:"#a983e2",Distal_Phalanx_1:"#5ad867",Proximal_Phalanx_2:"#e28395",Middle_Phalanx_2:"#5a97d8",Distal_Phalanx_2:"#cce283",Proximal_Phalanx_3:"#d05ad8",Middle_Phalanx_3:"#83e2c0",Distal_Phalanx_3:"#d8865a",Proximal_Phalanx_4:"#8983e2",Middle_Phalanx_4:"#77d85a",Distal_Phalanx_4:"#e283b5",Proximal_Phalanx_5:"#5ac1d8",Middle_Phalanx_5:"#e2d883",Distal_Phalanx_5:"#a65ad8"};
+const BONES = {
+  Tibia: ["Tibia", "leg", "The shin bone. Its lower end forms the inner ankle (medial malleolus)."],
+  Fibula: ["Fibula", "leg", "The thin lateral leg bone. Its lower end forms the outer ankle (lateral malleolus)."],
+  Talus: ["Talus", "tarsal", "Sits under the tibia and passes body weight from the leg to the foot."],
+  Calcaneus: ["Calcaneus", "tarsal", "The heel bone, the largest bone of the foot."],
+  Navicular: ["Navicular", "tarsal", "Boat-shaped, on the medial side between the head of the talus and the cuneiforms."],
+  Cuboid: ["Cuboid", "tarsal", "On the lateral side, in front of the calcaneus; meets the fourth and fifth metatarsals."],
+  Medial_Cuneiform: ["Medial cuneiform", "tarsal", "The largest cuneiform; meets the first metatarsal."],
+  Intermediate_Cuneiform: ["Intermediate cuneiform", "tarsal", "The smallest cuneiform; meets the second metatarsal."],
+  Lateral_Cuneiform: ["Lateral cuneiform", "tarsal", "Meets the third metatarsal, beside the cuboid."],
+};
+for (let i = 1; i <= 5; i++) {
+  BONES["Metatarsal_" + i] = [MT[i] + " metatarsal", "metatarsal", i === 1 ? "The shortest and thickest metatarsal, under the great toe." : i === 5 ? "Has a tuberosity at its base on the lateral edge of the foot." : "One of the five long bones of the forefoot."];
+  BONES["Proximal_Phalanx_" + i] = ["Proximal phalanx, " + ORD[i], "phalanx", "The phalanx nearest the metatarsal."];
+  if (i > 1) BONES["Middle_Phalanx_" + i] = ["Middle phalanx, " + ORD[i], "phalanx", "The great toe has two phalanges; the other toes have three."];
+  BONES["Distal_Phalanx_" + i] = ["Distal phalanx, " + ORD[i], "phalanx", "The tip of the toe."];
+}
+const KIND = { leg: "Leg bone", tarsal: "Tarsal bone", metatarsal: "Metatarsal", phalanx: "Phalanx" };
+const SETS = [
+  { id: "tarsal", label: "Tarsals", test: k => BONES[k][1] === "tarsal" },
+  { id: "metatarsal", label: "Metatarsals", test: k => BONES[k][1] === "metatarsal" },
+  { id: "phalanx", label: "Toe bones (phalanges)", test: k => BONES[k][1] === "phalanx" },
+  { id: "all", label: "All 28 bones", test: () => true },
+];
+const GROUPS = [["Tarsals", "tarsal"], ["Metatarsals", "metatarsal"], ["Phalanges", "phalanx"], ["Leg bones", "leg"]];
+
+// ---- renderer and scene
+const canvas = $("canvas"), view = $("view"), statusEl = $("status");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+const scene = new THREE.Scene();
+scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+const key = new THREE.DirectionalLight(0xffffff, 1.5); key.position.set(1, 1.4, 0.6); scene.add(key);
+const rim = new THREE.DirectionalLight(0xbcd4ff, 0.7); rim.position.set(-1, 0.4, -1); scene.add(rim);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x2a2f55, 0.4));
+const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 50);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true; controls.dampingFactor = 0.08; controls.rotateSpeed = 0.5; controls.zoomSpeed = 0.6; controls.enablePan = false;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const spin = new THREE.Group(); scene.add(spin);   // turned by the Rotate slider, like the app's SpinFoot slider
+const GREY = new THREE.Color(0x4a5070), OK = new THREE.Color(0x3ddc97), BAD = new THREE.Color(0xff6b6b), BLACK = new THREE.Color(0);
+const meshes = {};
+let radius = 1;
+
+async function load() {
+  const res = await fetch("/interactive/foot-bone-explorer/models/foot.glb");
+  if (!res.ok) throw new Error("file returned " + res.status);
+  const buf = await res.arrayBuffer();
+  const gltf = await new Promise((ok, no) => new GLTFLoader().parse(buf, "", ok, no));
+  const root = gltf.scene;
+  root.traverse(o => {
+    if (!o.isMesh || !BONES[o.name]) return;
+    const own = new THREE.Color(COLOR[o.name] || "#f4f4f0");
+    o.material = new THREE.MeshStandardMaterial({ color: new THREE.Color(0xf4f4f0), roughness: 0.55, metalness: 0 });
+    o.userData.own = own;
+    meshes[o.name] = o;
+  });
+  const box = new THREE.Box3().setFromObject(root);
+  const c = box.getCenter(new THREE.Vector3()); radius = box.getSize(new THREE.Vector3()).length() / 2;
+  root.position.sub(c); spin.add(root);
+  return Object.keys(meshes).length;
+}
+
+function resize() {
+  const r = view.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return;
+  renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix();
+  if (!touched) home(); else fit();
+}
+new ResizeObserver(resize).observe(view);
+
+let touched = false;
+function dist() {
+  const vHalf = THREE.MathUtils.degToRad(camera.fov / 2), hHalf = Math.atan(Math.tan(vHalf) * camera.aspect);
+  return radius * (mode === "intro" ? 0.92 : 1.0) / Math.sin(Math.min(vHalf, hHalf));   // fill the space the foot has
+}
+function fit() {
+  const d = dist(), dir = camera.position.clone().sub(controls.target).normalize();
+  camera.position.copy(controls.target).addScaledVector(dir, d);
+  controls.minDistance = d * 0.3; controls.maxDistance = d * 2.2; controls.update();
+}
+function home() {
+  // Lateral, slightly from above and in front, with the toes to the right, as in the app.
+  const d = dist();
+  controls.target.set(0, -radius * 0.08, 0);
+  camera.position.copy(new THREE.Vector3(1, 0.55, -0.35).normalize().multiplyScalar(d));
+  controls.minDistance = d * 0.3; controls.maxDistance = d * 2.2; controls.update();
+  spin.rotation.y = 0; $("rot").value = 0; paintSlider(); touched = false;
+}
+controls.addEventListener("start", () => { touched = true; });
+
+// ---- colours: every bone is white; only a selected bone shows its own colour
+const WHITE = new THREE.Color(0xf4f4f0);
+let hover = null, picked = null, marks = {};
+function paint() {
+  const focus = Object.keys(marks).length ? null : (hover || picked);
+  for (const [k, m] of Object.entries(meshes)) {
+    const own = m.userData.own, mat = m.material;
+    if (marks[k] === "ok" || marks[k] === "bad") { mat.color.copy(marks[k] === "ok" ? OK : BAD); mat.emissive.copy(mat.color).multiplyScalar(0.3); }
+    else if (marks[k] === "lit" || k === focus) { mat.color.copy(own); mat.emissive.copy(own).multiplyScalar(0.3); }
+    else { mat.color.copy(WHITE); mat.emissive.copy(BLACK); }
+  }
+  document.querySelectorAll(".key button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.k === picked)));
+}
+
+// ---- picking: a short tap picks, a drag turns the model
+const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
+function hit(e) {
+  const r = canvas.getBoundingClientRect();
+  ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(ptr, camera);
+  const h = ray.intersectObjects(Object.values(meshes), false)[0];
+  return h ? h.object.name : null;
+}
+let down = null, spinning = !reduce;
+canvas.addEventListener("pointerdown", e => { down = { x: e.clientX, y: e.clientY }; spinning = false; });
+canvas.addEventListener("pointermove", e => {
+  if (e.pointerType !== "mouse" || down) return;
+  const k = hit(e); canvas.classList.toggle("hot", !!k);
+  if (mode === "explore" && k !== hover) { hover = k; show(hover || picked); paint(); }
+});
+canvas.addEventListener("pointerleave", () => { if (mode === "explore" && hover) { hover = null; show(picked); paint(); } });
+canvas.addEventListener("pointerup", e => {
+  if (!down) return; const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6; down = null;
+  if (moved) return;
+  const k = hit(e);
+  if (mode === "explore") { picked = k; hover = null; show(k); paint(); }
+  else if (mode === "quiz" && q && q.how === "find" && k) answer(k);
+});
+
+// ---- explore
+function show(k) {
+  const dot = $("bDot");
+  if (!k) { $("bName").textContent = "Tap a bone"; $("bKind").textContent = "Hover or tap any bone, or pick one below"; $("bFact").textContent = ""; dot.hidden = true; return; }
+  const [name, kind, fact] = BONES[k];
+  $("bName").textContent = name; $("bKind").textContent = KIND[kind]; $("bFact").textContent = fact;
+  dot.hidden = false; dot.style.background = COLOR[k];
+}
+$("key").innerHTML = GROUPS.map(([label, g]) => `<h2>${label}</h2><ul>${Object.keys(BONES).filter(k => BONES[k][1] === g).map(k => `<li><button type="button" data-k="${k}" aria-pressed="false"><span class="dot" style="background:${COLOR[k]}"></span>${BONES[k][0]}</button></li>`).join("")}</ul>`).join("");
+function setList(open) {
+  $("key").hidden = !open; $("keyToggle").setAttribute("aria-expanded", String(open));
+  $("app").classList.toggle("list-open", open);
+}
+$("keyToggle").onclick = () => setList($("key").hidden);
+$("key").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; picked = picked === b.dataset.k ? null : b.dataset.k; show(picked); paint(); });
+
+// ---- quiz
+let mode = "intro", q = null;
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+$("sets").innerHTML = SETS.map((s, i) => `<label class="set"><input type="radio" name="set" value="${s.id}"${i === 0 ? " checked" : ""}>${s.label}<small>${Object.keys(BONES).filter(s.test).length} bones</small></label>`).join("");
+function startQuiz(list, how, setId) {
+  q = { list: shuffle(list), how, setId, i: 0, score: 0, miss: [], tries: 0, done: false };
+  setMode("quiz"); ask();
+}
+function ask() {
+  marks = {}; picked = null; hover = null;
+  const k = q.list[q.i]; q.tries = 0; q.done = false;
+  $("qCount").textContent = `Question ${q.i + 1} of ${q.list.length}`;
+  $("qScore").textContent = `${q.score} correct`;
+  $("qBar").style.width = (q.i / q.list.length * 100) + "%";
+  $("qFeedback").textContent = ""; $("qFeedback").className = "feedback"; $("qNext").hidden = true;
+  const P = $("qPrompt"), C = $("qChoices");
+  if (q.how === "find") {
+    P.replaceChildren("Tap the ", Object.assign(document.createElement("b"), { textContent: BONES[k][0] }));
+    C.replaceChildren();
+  } else {
+    P.textContent = "Which bone is lit up?"; marks[k] = "lit";
+    const pool = Object.keys(BONES).filter(x => x !== k && BONES[x][1] === BONES[k][1]);
+    const wide = Object.keys(BONES).filter(x => x !== k && !pool.includes(x));
+    const opts = shuffle([k, ...shuffle(pool).slice(0, 3), ...shuffle(wide)].slice(0, 4));
+    C.replaceChildren(...opts.map(o => { const b = document.createElement("button"); b.type = "button"; b.className = "choice"; b.textContent = BONES[o][0]; b.dataset.k = o; b.onclick = () => answer(o, b); return b; }));
+  }
+  paint();
+}
+function answer(k, btn) {
+  if (q.done) return;
+  const want = q.list[q.i], fb = $("qFeedback");
+  if (k === want) {
+    if (q.tries === 0) q.score++;
+    q.done = true; marks = { [want]: "ok" };
+    if (btn) btn.classList.add("right");
+    fb.textContent = q.tries === 0 ? "Correct" : "That's it"; fb.className = "feedback ok";
+    $("qScore").textContent = `${q.score} correct`; $("qNext").hidden = false; $("qNext").focus();
+  } else {
+    q.tries++; if (q.tries === 1) q.miss.push(want);
+    if (q.how === "find") { marks = { [k]: "bad" }; fb.textContent = `That's the ${BONES[k][0].toLowerCase()}.` + (q.tries >= 2 ? " The right one is now green." : " Try again."); }
+    else { btn.classList.add("wrong"); fb.textContent = q.tries >= 2 ? "Here's the answer." : "Not quite. Try again."; }
+    fb.className = "feedback no";
+    if (q.tries >= 2) {
+      q.done = true; marks = { ...marks, [want]: "ok" };
+      document.querySelectorAll(".choice").forEach(b => { if (b.dataset.k === want) b.classList.add("right"); });
+      $("qNext").hidden = false;
+    }
+  }
+  paint();
+}
+$("qNext").onclick = () => { q.i++; if (q.i < q.list.length) ask(); else finish(); };
+function finish() {
+  marks = {}; paint();
+  const n = q.list.length, set = SETS.find(s => s.id === q.setId);
+  $("rScore").textContent = `${q.score} / ${n}`;
+  let best = 0; const bk = "fbe-best-" + q.setId + "-" + q.how;
+  try { best = +localStorage.getItem(bk) || 0; if (q.score > best) localStorage.setItem(bk, q.score); } catch (e) {}
+  $("rNote").textContent = `${set ? set.label : "Practice"}, ${q.how === "find" ? "find it" : "name it"}.` + (best && q.score > best ? " A new best." : best ? ` Your best is ${best}.` : "");
+  $("rMiss").textContent = q.miss.length ? "To practise: " + q.miss.map(k => BONES[k][0]).join(", ") : "";
+  $("rMissBtn").hidden = !q.miss.length;
+  $("results").hidden = false; $("rAgain").focus();
+}
+$("rAgain").onclick = () => {
+  $("results").hidden = true;
+  const s = SETS.find(x => x.id === q.setId);
+  startQuiz(s ? Object.keys(BONES).filter(s.test) : q.list, q.how, q.setId);
+};
+$("rMissBtn").onclick = () => { $("results").hidden = true; startQuiz(q.miss, q.how, "miss"); };
+$("rExplore").onclick = () => { $("results").hidden = true; setMode("explore"); };
+$("qQuit").onclick = () => setMode("explore");
+$("setupForm").addEventListener("submit", e => {
+  e.preventDefault(); const f = new FormData(e.target);
+  const s = SETS.find(x => x.id === f.get("set"));
+  $("quizSetup").hidden = true; startQuiz(Object.keys(BONES).filter(s.test), f.get("how"), s.id);
+});
+$("setupCancel").onclick = () => { $("quizSetup").hidden = true; setMode("explore"); };
+
+// ---- modes and chrome
+function setMode(m) {
+  $("app").classList.toggle("quiz-on", m === "quiz"); if (m !== "explore") setList(false);
+  mode = m; marks = {}; picked = null; hover = null; paint(); show(null);
+  $("tabExplore").setAttribute("aria-selected", String(m !== "quiz"));
+  $("tabQuiz").setAttribute("aria-selected", String(m === "quiz"));
+  $("explore").hidden = m !== "explore"; $("quiz").hidden = m !== "quiz";
+}
+$("tabExplore").onclick = () => { $("quizSetup").hidden = true; setMode("explore"); };
+$("tabQuiz").onclick = () => { $("results").hidden = true; $("quizSetup").hidden = false; };
+$("introQuiz").onclick = () => { $("play").onclick(); $("quizSetup").hidden = false; };
+$("play").onclick = () => {
+  $("intro").hidden = true; $("app").classList.remove("intro-on");
+  spinning = false; setMode("explore"); requestAnimationFrame(() => { resize(); home(); });
+};
+const openInfo = () => { $("info").hidden = false; $("infoClose").focus(); };
+$("introInfo").onclick = openInfo; $("infoBtn").onclick = openInfo;
+$("infoClose").onclick = () => { $("info").hidden = true; };
+addEventListener("keydown", e => { if (e.key === "Escape") $("info").hidden = true; });
+$("reset").onclick = home;
+function paintSlider() { const r = $("rot"); r.style.setProperty("--p", ((+r.value + 180) / 3.6) + "%"); }
+$("rot").addEventListener("input", e => { spinning = false; spin.rotation.y = THREE.MathUtils.degToRad(+e.target.value); paintSlider(); });
+
+resize();
+load().then(n => {
+  statusEl.hidden = true; home(); paint();
+  if (n < 28) console.warn("Only " + n + " bones found");
+}).catch(e => { console.error(e); statusEl.textContent = "The model could not load (" + (e && e.message || e) + "). Reload the page to try again."; });
+renderer.setAnimationLoop(() => {
+  if (spinning) spin.rotation.y += 0.004;
+  controls.update(); renderer.render(scene, camera);
+});
+}
+</script>
+</body>
+</html>
